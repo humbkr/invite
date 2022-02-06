@@ -10,7 +10,7 @@ import {
 import { debounce } from 'lodash'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { searchUser } from '../../services'
-import { isEmail } from '../../utils/email'
+import { isEmail } from '../../utils/strings'
 import ContactTag from './ContactTag'
 import ContactSelector from './ContactSelector'
 import EmailSelector from './EmailSelector'
@@ -79,6 +79,7 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
   const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value
     setValue(inputValue)
+    setCurrentHighlightedMatch(0)
     debouncedSearch(inputValue)
   }
 
@@ -109,6 +110,7 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
 
   const onRemoveContact = (email: string) => {
     setContacts(contacts.filter((contact) => contact.email !== email))
+    prepareInput()
   }
 
   const onContainerClick = () => inputRef.current?.focus()
@@ -185,6 +187,12 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
             onChange={onChange}
             value={value}
             placeholder={(contacts.length === 0) ? 'Search names or emails...' : ''}
+            onKeyDown={(e) => {
+              // Don't mess with the input caret when navigating the matches list.
+              if (e.key === 'ArrowUp') {
+                e.preventDefault()
+              }
+            }}
           />
         </Wrap>
         <Fade in={listIsVisible} unmountOnExit>

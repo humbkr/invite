@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react'
-import { isEmail } from './email'
+import { isEmail } from './strings'
 
 describe('invite utils - email', () => {
   afterEach(() => {

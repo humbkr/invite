@@ -17,9 +17,7 @@ const ContactSelector: React.FC<Props> = ({ contact, onClick, alreadyAdded, focu
   }
 
   let backgroundColor = 'transparent'
-  if (alreadyAdded) {
-    backgroundColor = 'blue.800'
-  } else if (focused) {
+  if (focused) {
     backgroundColor = 'blue.700'
   }
 
@@ -28,8 +26,8 @@ const ContactSelector: React.FC<Props> = ({ contact, onClick, alreadyAdded, focu
       variant="transparent"
       width="100%"
       padding="8px 0"
-      _hover={{ bg: (alreadyAdded) ? backgroundColor : 'blue.700' }}
-      _focus={{ bg: (alreadyAdded) ? backgroundColor : 'blue.700' }}
+      _hover={{ bg: 'blue.700' }}
+      _focus={{ bg: 'blue.700' }}
       cursor={(alreadyAdded) ? 'default' : 'pointer'}
       bg={backgroundColor}
       onClick={onSelect}
