@@ -58,8 +58,9 @@ export const searchUser = async (input: string): Promise<User[]> => {
     return []
   }
 
+  // TODO: replace startsWith with includes and hightlight matching substrings in results.
   return Users.filter(({ firstName, lastName, email }) => {
-    if (email === normalized) {
+    if (normalize(email).startsWith(normalized)) {
       return true
     }
 
@@ -67,6 +68,6 @@ export const searchUser = async (input: string): Promise<User[]> => {
       return true
     }
 
-    return normalize(lastName).startsWith(normalized);
+    return normalize(lastName).startsWith(normalized)
   })
 }
