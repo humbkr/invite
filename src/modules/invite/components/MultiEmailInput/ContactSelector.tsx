@@ -77,7 +77,7 @@ const ContactSelector: React.FC<Props> = ({ contact, onClick, alreadyAdded, focu
         </Box>
         {alreadyAdded && (
           <Circle backgroundColor="blue.500" w="26px" h="26px">
-            <Image src="/images/check.svg" alt="Already added" w="18px" h="18px" />
+            <Image src={`${process.env.PUBLIC_URL}/images/check.svg`} alt="Already added" w="18px" h="18px" />
           </Circle>
         )}
       </Flex>

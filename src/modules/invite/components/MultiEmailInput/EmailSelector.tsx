@@ -24,7 +24,7 @@ const EmailSelector: React.FC<Props> = ({ email, onClick, focused }) => (
       align="center"
       padding="10px"
     >
-      <Image src="/images/envelope.svg" alt="Envelope" marginEnd="10px" />
+      <Image src={`${process.env.PUBLIC_URL}/images/envelope.svg`} alt="Envelope" marginEnd="10px" />
       <TooltipOverflow label={email}>
         <Text fontSize="13px" textOverflow="ellipsis" overflow="hidden">{email}</Text>
       </TooltipOverflow>

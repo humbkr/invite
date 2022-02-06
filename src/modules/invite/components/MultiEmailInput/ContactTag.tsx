@@ -24,7 +24,7 @@ const ContactTag: React.FC<Props> = ({ contact, onRemove, maxWidth }) => (
       justifyContent="center"
     >
       {!contact.id && (
-        <Image src="/images/envelope.svg" alt="Envelope" data-testid="icon-envelope" />
+        <Image src={`${process.env.PUBLIC_URL}/images/envelope.svg`} alt="Envelope" data-testid="icon-envelope" />
       )}
       {contact.id && (
        <Avatar
@@ -48,7 +48,7 @@ const ContactTag: React.FC<Props> = ({ contact, onRemove, maxWidth }) => (
       </Text>
       <button onClick={() => onRemove(contact.email)}>
         <Box width="14px" height="14px" marginTop="1px">
-          <img src="/images/cross.svg" alt="Remove email" />
+          <img src={`${process.env.PUBLIC_URL}/images/cross.svg`} alt="Remove email" />
         </Box>
       </button>
     </Flex>
