@@ -26,12 +26,16 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
   const [focused, setFocused] = useState(false)
   const [matches, setMatches] = useState<User[]>([])
   const [inputWidth, setInputWidth] = useState(0)
+  const [containerWidth, setContainerWidth] = useState(0)
   const [listIsVisible, setListIsVisible] = useState(false)
   const [currentHighlightedMatch, setCurrentHighlightedMatch] = useState(0)
 
+  // Used to compute the max width of contact tags and input field.
   const containerRef = useRef<HTMLDivElement>(null)
-  const containerDimensions = useDimensions(containerRef)
 
+  // Used to dynamically set the width of the input depending on what's typed inside.
+  // We duplicate the typed content in a div in real time and compute the width of this div
+  // to report it on the input.
   const inputSizerRef = useRef<HTMLDivElement>(null)
 
   const matchesListRef = useRef(null)
@@ -42,6 +46,7 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
   })
 
   useLayoutEffect(() => {
+    setContainerWidth(containerRef.current?.clientWidth || 0)
     setInputWidth(inputSizerRef.current?.clientWidth || 0)
   }, [value])
 
@@ -69,18 +74,18 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
 
   const debouncedSearch = useMemo(() => debounce(handleOnChange, 300), [])
 
-  const prepareInput = () => {
-    setValue('')
-    setListIsVisible(false)
-    inputRef.current?.focus()
-    setCurrentHighlightedMatch(0)
-  }
-
   const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value
     setValue(inputValue)
     setCurrentHighlightedMatch(0)
     debouncedSearch(inputValue)
+  }
+
+  const prepareInput = () => {
+    setValue('')
+    setListIsVisible(false)
+    inputRef.current?.focus()
+    setCurrentHighlightedMatch(0)
   }
 
   React.useEffect(() => {
@@ -113,6 +118,7 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
     prepareInput()
   }
 
+  // Manually manages the visual focus when entering the field.
   const onContainerClick = () => inputRef.current?.focus()
 
   const onKeyEvent = (key: string) => {
@@ -155,7 +161,7 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
               key={contact.email}
               contact={contact}
               onRemove={onRemoveContact}
-              maxWidth={containerDimensions?.contentBox.width}
+              maxWidth={containerWidth}
             />
           ))}
           <Box
@@ -175,8 +181,8 @@ const MultiEmailInput: React.FC<Props> = ({ contacts, setContacts, inputRef }) =
             display="inline-block"
             fontSize="12px"
             h="25px"
-            minW={(value || contacts.length > 0) ? '30px' : containerDimensions?.contentBox.width}
-            maxW={containerDimensions?.contentBox.width}
+            minW={(value || contacts.length > 0) ? '30px' : `${containerWidth}px`}
+            maxW={`${containerWidth}px`}
             w={`${inputWidth + 13}px`}
             padding="0 5px"
             border={0}
