@@ -1,43 +1,53 @@
+/*
+ * Mocked service layer
+ */
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const ErrorRegex = /error/gi
 
 const Users = [
   {
-    firstName: 'Tara',
-    lastName: 'Halvik',
+    firstName: 'Dave',
+    lastName: 'Mustaine',
     id: (Math.random() * 1000).toString(),
-    email: 'tara@claap.io'
+    email: 'dave.mustaine@megadeth.com'
   },
   {
-    firstName: 'Tristan',
-    lastName: 'Agosta',
+    firstName: 'Jerry',
+    lastName: 'Cantrell',
     id: (Math.random() * 1000).toString(),
-    email: 'tristan@claap.com'
+    email: 'jcantrell@aliceinchains.com'
   },
   {
-    firstName: 'Thibault',
-    lastName: 'Marcelier',
+    firstName: 'Layne',
+    lastName: 'Staley',
     id: (Math.random() * 1000).toString(),
-    email: 'thibault@claap.com'
+    email: 'lstaley@aliceinchains.com'
   },
   {
-    firstName: 'Tamara',
-    lastName: 'Krachik',
+    firstName: 'Mike',
+    lastName: 'Inez',
     id: (Math.random() * 1000).toString(),
-    email: 'tamara@claap.com'
+    email: 'minez@aliceinchains.com'
+  },
+  {
+    firstName: 'Mike',
+    lastName: 'Starr',
+    id: (Math.random() * 1000).toString(),
+    email: 'mstarr@aliceinchains.com'
   },
   {
     firstName: 'Julien',
     lastName: 'Galletta',
     id: (Math.random() * 1000).toString(),
-    email: 'julien@claap.com'
+    email: 'julien@superkluster.com'
   },
   {
     firstName: 'Super long contact name to test text overflow on components',
     lastName: 'Test',
     id: (Math.random() * 1000).toString(),
-    email: 'superlongcontactnametotesttextoverflowoncomponents@claap.com'
+    email: 'superlongcontactnametotesttextoverflowoncomponents@test.com'
   }
 ]
 
